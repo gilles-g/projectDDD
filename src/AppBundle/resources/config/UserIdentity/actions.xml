@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service class="UserIdentity\Infrastructure\Web\Actions\RegisterUser" id="app.actions_user_identity.register_user">
+            <argument id="form.factory" type="service"/>
+            <argument id="prooph_service_bus.user_command_bus" type="service"/>
+            <argument id="prooph_service_bus.message_factory" type="service"/>
+            <argument id="templating.engine.twig" type="service"/>
+            <argument id="router" type="service"/>
+        </service>
+    </services>
+</container>

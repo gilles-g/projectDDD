@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    Homepage
+
+    {% if not app.user %}
+        <a href="{{ path('app_register_user') }}">
+            Register
+        </a>
+    {% endif %}
+{% endblock %}

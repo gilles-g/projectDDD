@@ -1,0 +1,21 @@
+prooph_service_bus:
+    command_buses:
+        user_command_bus:
+            plugins:
+              - 'prooph_event_store_bus_bridge.transaction_manager'
+            router:
+                type: 'prooph_service_bus.command_bus_router'
+                routes:
+                    'UserIdentity\Domain\Command\RegisterLightPublisher': 'project_ddd.register_user_handler'
+
+    event_buses:
+        user_event_bus:
+            plugins:
+                - 'prooph_service_bus.on_event_invoke_strategy'
+            router:
+                type: 'prooph_service_bus.event_bus_router'
+                routes:
+                    'UserIdentity\Domain\Event\UserWasRegistered':
+                      - 'user_identity.infrastructure.projection.user_projector'
+                    'UserIdentity\Domain\Event\LightPublisherWasRegistered':
+                      - 'user_identity.infrastructure.projection.publisher_projector'

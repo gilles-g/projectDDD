@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service class="UserIdentity\Infrastructure\Projection\UserFinder"
+                 id="user_identity.infrastructure.projection.user_finder">
+            <argument id="doctrine" type="service"/>
+        </service>
+
+        <service class="Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder" id="bcrypt_encoder">
+            <argument>12</argument>
+        </service>
+
+        <service class="UserIdentity\Infrastructure\Persistence\DoctrineChecksUniquerUsersEmailAddress"
+                 id="user_identity.infrastructure.persistence.doctrine_checks_uniquer_users_email_address">
+            <argument id="user_identity.infrastructure.projection.user_finder" type="service"/>
+        </service>
+
+    </services>
+</container>

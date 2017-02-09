@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% import _self as helper %}
+
+{% block body %}
+    <h1>
+        {{ user.emailAddress.toString }}
+
+        <small>PublisherId: {{ publisher.publisherId.toString }}</small>
+    </h1>
+
+    User Events:
+    {% for event in eventsUser %}
+        {{ helper.displayEvent(event) }}
+    {% endfor %}
+
+    Publisher Events:
+    {% for event in eventsPublisher %}
+        {{ helper.displayEvent(event) }}
+    {% endfor %}
+{% endblock %}
+
+{% macro displayEvent(event) %}
+    <dl class="dl-horizontal">
+        <dt>
+            Effectué le
+        </dt>
+        <dd>
+            {{ event.createdAt | date('d-m-Y') }}
+        </dd>
+        <dt>Nom de l'évenement</dt>
+        <dd>{{ event.messageName }}</dd>
+        <dt>Payload</dt>
+        <dd>
+            {% if event.payload | length > 0 %}
+                <ul class="list-unstyled">
+                    {% for key, params in event.payload -%}
+                        <li><code>{{ key }} : {{ params | join(',') }}</code></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </dd>
+        <dt>Metadata</dt>
+        <dd>
+            {% if event.metadata | length > 0 %}
+                <ul class="list-unstyled">
+                    {% for key, params in event.metadata -%}
+                        <li><code>{{ key }} : {{ params | join(',') }}</code></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </dd>
+    </dl>
+    <hr>
+{% endmacro %}

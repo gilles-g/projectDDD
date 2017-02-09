@@ -1,0 +1,19 @@
+app_security:
+    resource: '@AppBundle/Controller/SecurityController.php'
+    type:     annotation
+
+app_register_user:
+    path: /register
+    methods: [GET, POST]
+    defaults: { _controller: app.actions_user_identity.register_user:__invoke }
+
+app_register_user_success:
+    path: /register/success
+    methods: [GET]
+    defaults: { _controller: UserIdentity\Infrastructure\Web\Controller\RegisterUserSuccess::successAction }
+
+app_home:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    static/home.html.twig

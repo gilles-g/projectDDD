@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service class="UserIdentity\Domain\Handler\RegisterLightPublisherHandler" id="project_ddd.register_user_handler" autowire="true">
+            <argument type="service" id="user_repository" />
+            <argument type="service" id="publisher_repository" />
+            <argument type="service" id="user_identity.infrastructure.persistence.doctrine_checks_uniquer_users_email_address" />
+            <argument type="service" id="bcrypt_encoder" />
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
+    </services>
+</container>

@@ -22,5 +22,12 @@
             <argument id="user_identity.infrastructure.projection.user_finder" type="service"/>
         </service>
 
+        <service class="UserIdentity\Infrastructure\Rx\RegisterSuccess" id="user_identity.infrastructure.rx.register_success">
+            <argument id="prooph_event_store.doctrine_adapter.user_store" type="service"/>
+            <argument id="security.token_storage" type="service"/>
+            <argument id="prooph_service_bus.user_query_bus" type="service"/>
+        </service>
+
+
     </services>
 </container>

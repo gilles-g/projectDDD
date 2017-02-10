@@ -11,7 +11,7 @@ class RegisterUserSuccess extends Controller
     public function successAction()
     {
         /**
-         * Example of RxPHP, need move all this code.
+         * Example of RxPHP
          *
          * Get user for a given userId
          *  - loads events for user and merge with user data

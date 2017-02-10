@@ -81,7 +81,7 @@ class RegisterUser
     public function __invoke(Request $request)
     {
         $form = $this->formFactory->create(RegisterPublisherType::class, [
-            'method' => 'POST'
+            'method' => 'POST',
         ]);
         $form->handleRequest($request);
 
@@ -94,7 +94,7 @@ class RegisterUser
                     'publisher_id' => PublisherId::generate()->toString(),
                     'user_id' => UserId::generate()->toString(),
                     'roles' => 'ROLE_USER',
-                ]
+                ],
             ]);
 
             try {

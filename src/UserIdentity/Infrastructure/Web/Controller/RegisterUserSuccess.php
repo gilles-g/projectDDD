@@ -46,8 +46,7 @@ class RegisterUserSuccess extends Controller
                     'emailAddress' => $user->getEmailAddress(),
                     'username' => $user->getUsername(),
                 ];
-            })
-        ;
+            });
 
         // Iterator Observable of user events
         $eventUserObs = Observable::fromIterator(($this->get('prooph_event_store.doctrine_adapter.user_store')
@@ -69,20 +68,21 @@ class RegisterUserSuccess extends Controller
                 return [
                     'publisherId' => $publisher->getPublisherId(),
                 ];
-            })
-        ;
+            });
 
         // Iterator Observable of publisher events
-        $eventsPublisher = Observable::fromIterator($this->get('prooph_event_store.doctrine_adapter.user_store')->loadEvents(new StreamName('event'), [
-            'aggregate_id' => $tokenUser->getPublisherId()->toString(),
-        ]));
+        $eventsPublisher = Observable::fromIterator($this->get('prooph_event_store.doctrine_adapter.user_store')
+            ->loadEvents(new StreamName('event'), [
+                'aggregate_id' => $tokenUser->getPublisherId()->toString(),
+            ]));
 
         // Combine publisher observable with latest publisher events observable
-        $sourcePublisher = $publisherObs->combineLatest([$eventsPublisher], function ($publisherMap, $eventPublisherMap) {
-            $publisherMap['publisherEvents'][] = $eventPublisherMap;
+        $sourcePublisher =
+            $publisherObs->combineLatest([$eventsPublisher], function ($publisherMap, $eventPublisherMap) {
+                $publisherMap['publisherEvents'][] = $eventPublisherMap;
 
-            return $publisherMap;
-        });
+                return $publisherMap;
+            });
 
         // Combine user observable and publisher observable
         $source = $sourceUser->combineLatest([$sourcePublisher], function ($user, $publisher) {
@@ -92,7 +92,7 @@ class RegisterUserSuccess extends Controller
         // Observer
         $createResponse = function (Response $response) {
             return new CallbackObserver(
-                // On success, render view
+            // On success, render view
                 function ($value) use ($response) {
                     $this->render('@App/UserIdentity/register_user_success.html.twig', [
                         'publisherUser' => $value,
@@ -102,7 +102,7 @@ class RegisterUserSuccess extends Controller
                 // On error, set error
                 function ($error) use ($response) {
                     $response->setStatusCode(404);
-                    $response->setContent('error on query with message : '.$error);
+                    $response->setContent('error on query with message : ' . $error);
                 }
             );
         };

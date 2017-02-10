@@ -13,7 +13,7 @@ class RegisterLightPublisher extends Command implements PayloadConstructable
 {
     use PayloadTrait;
 
-    public static function withData($publisherId, $userId, $email, $password)
+    public static function withData($publisherId, $userId, $email, $password, $roles)
     {
         return new self(
             [
@@ -21,6 +21,7 @@ class RegisterLightPublisher extends Command implements PayloadConstructable
                 'user_d' => (string) $userId,
                 'email' => (string) $email,
                 'password' => (string) $password,
+                'roles' => $roles,
             ]
         );
     }
@@ -49,5 +50,10 @@ class RegisterLightPublisher extends Command implements PayloadConstructable
     public function password()
     {
         return $this->payload['password'];
+    }
+
+    public function roles()
+    {
+        return $this->payload['roles'];
     }
 }

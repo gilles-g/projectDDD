@@ -2,10 +2,11 @@
 
 namespace AppBundle\Model;
 
+use UserIdentity\Domain\Model\LoggedUserInterface;
 use UserIdentity\Domain\Model\PublisherId;
 use UserIdentity\Domain\Model\UserId;
 
-class LoggedUser
+class LoggedUser implements LoggedUserInterface
 {
     private $userId;
 

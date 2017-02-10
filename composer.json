@@ -34,7 +34,9 @@
         "prooph/event-sourcing": "^4.0",
         "prooph/event-store-doctrine-adapter": "^3.2",
         "prooph/event-store-bus-bridge": "^2.0",
-        "doctrine/doctrine-migrations-bundle": "^1.2"
+        "doctrine/doctrine-migrations-bundle": "^1.2",
+        "reactivex/rxphp": "^1.5",
+        "react/promise": "^2.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

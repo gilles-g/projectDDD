@@ -8,6 +8,9 @@
             <argument id="prooph_service_bus.message_factory" type="service"/>
             <argument id="templating.engine.twig" type="service"/>
             <argument id="router" type="service"/>
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="event_dispatcher" />
         </service>
     </services>
 </container>

@@ -70,11 +70,11 @@ class User extends AggregateRoot implements UserInterface, EquatableInterface
         return UserId::fromString($this->userId);
     }
 
-    public static function registerWithData(UserId $userId, EmailAddress $emailAddress, $password)
+    public static function registerWithData(UserId $userId, EmailAddress $emailAddress, $password, $roles)
     {
         $self = new self();
 
-        $self->recordThat(UserWasRegistered::withData($userId, $emailAddress, $password));
+        $self->recordThat(UserWasRegistered::withData($userId, $emailAddress, $password, $roles));
 
         return $self;
     }
@@ -85,6 +85,7 @@ class User extends AggregateRoot implements UserInterface, EquatableInterface
         $this->emailAddress = $event->emailAddress();
         $this->username = $event->emailAddress()->toString();
         $this->password = $event->password();
+        $this->roles = [$event->roles()];
     }
 
     public static function createWhenUserWasRegistered(UserWasRegistered $event)
@@ -94,7 +95,7 @@ class User extends AggregateRoot implements UserInterface, EquatableInterface
         $user->emailAddress = $event->emailAddress();
         $user->username = $event->emailAddress()->toString();
         $user->password = $event->password();
-        $user->roles = ['ROLE_USER'];
+        $user->roles = [$event->roles()];
 
         return $user;
     }
@@ -147,6 +148,11 @@ class User extends AggregateRoot implements UserInterface, EquatableInterface
         }
 
         return true;
+    }
+
+    public function __toString()
+    {
+        return $this->aggregateId();
     }
 
     /**

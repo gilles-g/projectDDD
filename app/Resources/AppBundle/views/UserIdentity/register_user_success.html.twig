@@ -4,18 +4,22 @@
 
 {% block body %}
     <h1>
-        {{ user.emailAddress.toString }}
-
-        <small>PublisherId: {{ publisher.publisherId.toString }}</small>
+        {{ publisherUser.emailAddress.toString }}
     </h1>
 
+    <h2>
+        <small>UserId: {{ publisherUser.userId }}</small> |
+        <small>PublisherId: {{ publisherUser.publisherId }}</small>
+    </h2>
+
+
     User Events:
-    {% for event in eventsUser %}
+    {% for event in publisherUser.userEvents %}
         {{ helper.displayEvent(event) }}
     {% endfor %}
 
     Publisher Events:
-    {% for event in eventsPublisher %}
+    {% for event in publisherUser.publisherEvents %}
         {{ helper.displayEvent(event) }}
     {% endfor %}
 {% endblock %}
@@ -26,7 +30,7 @@
             Effectué le
         </dt>
         <dd>
-            {{ event.createdAt | date('d-m-Y') }}
+            {{ event.createdAt | date('d-m-Y H:i:m u') }}
         </dd>
         <dt>Nom de l'évenement</dt>
         <dd>{{ event.messageName }}</dd>

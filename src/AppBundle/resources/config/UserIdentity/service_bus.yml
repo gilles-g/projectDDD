@@ -19,3 +19,11 @@ prooph_service_bus:
                       - 'user_identity.infrastructure.projection.user_projector'
                     'UserIdentity\Domain\Event\LightPublisherWasRegistered':
                       - 'user_identity.infrastructure.projection.publisher_projector'
+
+    query_buses:
+        user_query_bus:
+            router:
+                type: 'prooph_service_bus.query_bus_router'
+                routes:
+                    'UserIdentity\Domain\Query\GetUserById': 'user_identity.domain.handler.get_user_by_id_handler'
+                    'UserIdentity\Domain\Query\GetPublisherById': 'user_identity.domain.handler.get_publisher_by_id_handler'

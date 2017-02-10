@@ -102,6 +102,11 @@ class Publisher extends AggregateRoot
         $this->projects = $projects;
     }
 
+    public function __toString()
+    {
+        return $this->aggregateId();
+    }
+
     /**
      * @return string representation of the unique identifier of the aggregate root
      */

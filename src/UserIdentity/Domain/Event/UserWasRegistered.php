@@ -23,21 +23,31 @@ class UserWasRegistered extends AggregateChanged
      */
     private $emailAddress;
 
+    /**
+     * @var string
+     */
     private $password;
 
-    public static function withData(UserId $userId, EmailAddress $emailAddress, $password)
+    /**
+     * @var string
+     */
+    private $roles;
+
+    public static function withData(UserId $userId, EmailAddress $emailAddress, $password, $roles)
     {
         $event = self::occur(
             $userId->toString(),
             [
                 'password' => $password,
                 'email' => $emailAddress->toString(),
+                'roles' => $roles,
             ]
         );
 
         $event->userId = $userId;
         $event->username = $emailAddress->toString();
         $event->emailAddress = $emailAddress;
+        $event->roles = $roles;
 
         return $event;
     }
@@ -78,5 +88,14 @@ class UserWasRegistered extends AggregateChanged
         }
 
         return $this->emailAddress;
+    }
+
+    public function roles()
+    {
+        if ($this->roles === null) {
+            $this->roles = $this->payload['roles'];
+        }
+
+        return $this->roles;
     }
 }

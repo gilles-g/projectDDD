@@ -12,6 +12,11 @@ app_register_user_success:
     methods: [GET]
     defaults: { _controller: UserIdentity\Infrastructure\Web\Controller\RegisterUserSuccess::successAction }
 
+app_publisher_change_business_informations:
+    path: /publisher/{id}/change-business-informations
+    methods: [GET, POST]
+    defaults: { _controller: UserIdentity\Infrastructure\Web\Controller\ChangeBusinessInformation::formAction }
+
 app_home:
     path: /
     defaults:

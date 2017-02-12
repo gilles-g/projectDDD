@@ -9,6 +9,12 @@
             <argument type="service" id="bcrypt_encoder" />
         </service>
 
+        <service class="UserIdentity\Domain\Handler\ChangeBusinessInformationsHandler"
+                 id="user_identity.domain.handler.change_business_informations_handler">
+            <argument type="service" id="publisher_repository" />
+        </service>
+
+
         <service class="UserIdentity\Domain\Handler\GetUserByIdHandler" id="user_identity.domain.handler.get_user_by_id_handler">
             <argument id="user_identity.infrastructure.projection.user_finder" type="service"/>
         </service>

@@ -3,7 +3,6 @@
 namespace UserIdentity\Domain\Handler;
 
 use React\Promise\Deferred;
-use Rx\Observable;
 use UserIdentity\Domain\Model\UserId;
 use UserIdentity\Domain\Query\GetUserById;
 use UserIdentity\Infrastructure\Projection\UserFinder;

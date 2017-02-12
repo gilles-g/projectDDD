@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping\Table;
 use Project\Domain\Model\Project;
 use Doctrine\ORM\Mapping as ORM;
 use Prooph\EventSourcing\AggregateRoot;
+use UserIdentity\Domain\Event\BusinessInformationsUpdated;
 use UserIdentity\Domain\Event\LightPublisherWasRegistered;
 
 /**
@@ -33,6 +34,13 @@ class Publisher extends AggregateRoot
      * @var UserId
      */
     private $userId;
+
+    /**
+     * @var BusinessInformations
+     *
+     * @ORM\Embedded(class="UserIdentity\Domain\Model\BusinessInformations", columnPrefix="business_informations")
+     */
+    private $businessInformations;
 
     /**
      * @var Project[]
@@ -70,6 +78,24 @@ class Publisher extends AggregateRoot
         return $publisher;
     }
 
+    public function changeBusinessInformations(BusinessInformations $businessInformations)
+    {
+        $oldBusinessInformations = $this->businessInformations?: BusinessInformations::fromParts('-', '-', '-');
+
+        $this->businessInformations = $businessInformations;
+
+        $this->recordThat(BusinessInformationsUpdated::withData(
+            $this->publisherId,
+            $oldBusinessInformations,
+            $businessInformations)
+        );
+    }
+
+    public function whenBusinessInformationsUpdated(BusinessInformationsUpdated $event)
+    {
+        $this->businessInformations = $event->newBusinessInformations();
+    }
+
     /**
      * @return PublisherId
      */
@@ -92,6 +118,14 @@ class Publisher extends AggregateRoot
     public function getProjects()
     {
         return $this->projects;
+    }
+
+    /**
+     * @return BusinessInformations
+     */
+    public function getBusinessInformations()
+    {
+        return $this->businessInformations;
     }
 
     /**

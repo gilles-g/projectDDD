@@ -5,9 +5,7 @@ namespace UserIdentity\Infrastructure\Rx;
 use AppBundle\Model\LoggedUser;
 use Prooph\EventStore\Adapter\Doctrine\DoctrineEventStoreAdapter;
 use Prooph\EventStore\Stream\StreamName;
-use Prooph\ServiceBus\QueryBus;
 use Rx\Observable;
-use Rx\React\Promise;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use UserIdentity\Domain\Model\Publisher;
 use UserIdentity\Domain\Model\User;
@@ -22,9 +20,9 @@ class RegisterSuccess
     private $doctrineEventStoreAdapter;
 
     /**
-     * @var QueryBus
+     * @var QueryObservable
      */
-    private $queryBus;
+    private $queryObservable;
 
     /**
      * @var LoggedUser
@@ -34,11 +32,11 @@ class RegisterSuccess
     public function __construct(
         DoctrineEventStoreAdapter $doctrineEventStoreAdapter,
         TokenStorageInterface $tokenStorage,
-        QueryBus $queryBus
+        QueryObservable $queryObservable
     )
     {
         $this->doctrineEventStoreAdapter = $doctrineEventStoreAdapter;
-        $this->queryBus = $queryBus;
+        $this->queryObservable = $queryObservable;
         $this->tokenUser = $tokenStorage->getToken()->getUser();
     }
 
@@ -47,9 +45,9 @@ class RegisterSuccess
      */
     private function getUser()
     {
-        $promiseUser = $this->queryBus->dispatch(new GetUserById($this->tokenUser->getUserId()->toString()));
+        $userObs = $this->queryObservable->dispatch(new GetUserById($this->tokenUser->getUserId()->toString()));
 
-        return Promise::toObservable($promiseUser)
+        return $userObs
             // return array
             ->map(function (User $user) {
                 return [
@@ -79,9 +77,9 @@ class RegisterSuccess
      */
     private function getPublisher()
     {
-        $promisePublisher = $this->queryBus->dispatch(new GetPublisherById($this->tokenUser->getPublisherId()->toString()));
+        $publisherObs = $this->queryObservable->dispatch(new GetPublisherById($this->tokenUser->getPublisherId()->toString()));
 
-        return Promise::toObservable($promisePublisher)
+        return $publisherObs
             // return array
             ->map(function (Publisher $publisher) {
                 return [

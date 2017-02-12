@@ -36,7 +36,8 @@
         "prooph/event-store-bus-bridge": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^1.2",
         "reactivex/rxphp": "^1.5",
-        "react/promise": "^2.5"
+        "react/promise": "^2.5",
+        "jms/serializer": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

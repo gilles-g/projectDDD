@@ -7,6 +7,7 @@ prooph_service_bus:
                 type: 'prooph_service_bus.command_bus_router'
                 routes:
                     'UserIdentity\Domain\Command\RegisterLightPublisher': 'project_ddd.register_user_handler'
+                    'UserIdentity\Domain\Command\ChangeBusinessInformations': 'user_identity.domain.handler.change_business_informations_handler'
 
     event_buses:
         user_event_bus:
@@ -18,6 +19,8 @@ prooph_service_bus:
                     'UserIdentity\Domain\Event\UserWasRegistered':
                       - 'user_identity.infrastructure.projection.user_projector'
                     'UserIdentity\Domain\Event\LightPublisherWasRegistered':
+                      - 'user_identity.infrastructure.projection.publisher_projector'
+                    'UserIdentity\Domain\Event\BusinessInformationsUpdated':
                       - 'user_identity.infrastructure.projection.publisher_projector'
 
     query_buses:

@@ -25,7 +25,7 @@ class EmailAddress
      * @param string $email
      * @return EmailAddress
      */
-    public static function fromString(string $email)
+    public static function fromString($email)
     {
         return new self($email);
     }
@@ -33,7 +33,7 @@ class EmailAddress
     /**
      * @param string $emailAddress
      */
-    private function __construct(string $emailAddress)
+    private function __construct($emailAddress)
     {
         if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
             throw InvalidEmailAddress::reason('filter_var returned false');

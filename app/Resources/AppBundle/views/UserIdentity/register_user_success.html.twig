@@ -3,6 +3,10 @@
 {% import _self as helper %}
 
 {% block body %}
+    <a href="{{ path('app_publisher_change_business_informations', {id: publisherUser.publisherId}) }}">
+        update business information
+    </a>
+
     <h1>
         {{ publisherUser.emailAddress.toString }}
     </h1>
@@ -11,7 +15,6 @@
         <small>UserId: {{ publisherUser.userId }}</small> |
         <small>PublisherId: {{ publisherUser.publisherId }}</small>
     </h2>
-
 
     User Events:
     {% for event in publisherUser.userEvents %}

@@ -4,6 +4,7 @@ namespace UserIdentity\Infrastructure\Projection;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
+use UserIdentity\Domain\Event\BusinessInformationsUpdated;
 use UserIdentity\Domain\Event\LightPublisherWasRegistered;
 use UserIdentity\Domain\Model\Publisher;
 
@@ -30,6 +31,14 @@ class PublisherProjector
         $publisher = Publisher::createwhenLightPublisherWasRegistered($event);
 
         $this->entityManager()->persist($publisher);
+        $this->entityManager()->flush();
+    }
+
+    public function onBusinessInformationsUpdated(BusinessInformationsUpdated $event)
+    {
+        $publisher = $this->managerRegistry->getRepository(Publisher::class)->find($event->publisherId()->toString());
+        $publisher->whenBusinessInformationsUpdated($event);
+
         $this->entityManager()->flush();
     }
 }

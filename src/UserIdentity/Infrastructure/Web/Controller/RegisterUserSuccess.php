@@ -5,6 +5,7 @@ namespace UserIdentity\Infrastructure\Web\Controller;
 use Rx\Observer\CallbackObserver;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use UserIdentity\Infrastructure\Persistence\EventStorePublisherRepository;
 
 class RegisterUserSuccess extends Controller
 {
@@ -24,10 +25,14 @@ class RegisterUserSuccess extends Controller
 
         $registerSuccessRx = $this->get('user_identity.infrastructure.rx.register_success');
 
+        /** @var EventStorePublisherRepository $repo */
+        $repo = $this->get('publisher_repository');
+
+
         // Observer
         $createResponse = function (Response $response) {
             return new CallbackObserver(
-            // On success, render view
+                // On success, render view
                 function ($value) use ($response) {
                     $this->render('@App/UserIdentity/register_user_success.html.twig', [
                         'publisherUser' => $value,

@@ -7,11 +7,13 @@ prooph_event_store:
               repository_class: 'UserIdentity\Infrastructure\Persistence\EventStoreUserRepository'
               aggregate_type: 'UserIdentity\Domain\Model\User'
               aggregate_translator: 'prooph_event_sourcing.aggregate_translator'
+              snapshot_store: 'prooph_test.bundle.event_store.snapshotter'
 
           publisher_repository:
               repository_class: 'UserIdentity\Infrastructure\Persistence\EventStorePublisherRepository'
               aggregate_type: 'UserIdentity\Domain\Model\Publisher'
               aggregate_translator: 'prooph_event_sourcing.aggregate_translator'
+              snapshot_store: 'prooph_test.bundle.event_store.snapshotter'
 
 services:
   prooph_event_store.doctrine_adapter.user_store:
@@ -31,3 +33,8 @@ services:
       arguments: ['@prooph_service_bus.user_event_bus']
       tags:
         - { name: 'prooph_event_store.user_store.plugin' }
+
+
+  'prooph_test.bundle.event_store.snapshotter':
+      class: Prooph\EventStore\Snapshot\SnapshotStore
+      arguments: ['@prooph.event_store.snapshot.adapter.doctrine.doctrine_snapshot_adapter']

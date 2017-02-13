@@ -32,5 +32,15 @@
             <argument id="prooph_service_bus.user_query_bus" type="service"/>
         </service>
 
+        <service class="Prooph\EventStore\Snapshot\Adapter\Doctrine\DoctrineSnapshotAdapter"
+                 id="prooph.event_store.snapshot.adapter.doctrine.doctrine_snapshot_adapter">
+            <argument id="doctrine.dbal.default_connection" type="service"/>
+            <argument type="collection">
+                <argument key="UserIdentity\Domain\Model\Publisher::class">snapshot</argument>
+                <argument key="UserIdentity\Domain\Model\User::class">snapshot</argument>
+            </argument>
+        </service>
+
+
     </services>
 </container>

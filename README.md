@@ -3,7 +3,7 @@ Project DDD
 
 Simple demo project:
 
-* Prooph : https://github.com/prooph
+## Prooph : https://github.com/prooph
 
 This project is inspired by https://github.com/prooph/proophessor-do-symfony
 
@@ -11,12 +11,12 @@ You can just test a registration and change your information with fake informati
 The important here is to look at the events and snapshot created in your database.
 Look also in the symfony profiler how doctrine queries are processed.
 
-* RxPHP : https://github.com/ReactiveX/RxPHP
+## RxPHP : https://github.com/ReactiveX/RxPHP
 
 RxPHP is used to handle asynchronous call. Prooph uses a React\Promise to 
 handle queries; With RxPHP you can wrap a promise with an Observable.
 
-An example here (without promise) : 
+An pseudo code example :
 
 Example of RxPHP
 
@@ -92,8 +92,18 @@ array [
 Installation:
 -------------
 
+```sh
 git clone
-composer install
-bin/console do:mi:mi
-bin/console ser:run
+```
 
+```sh
+composer install
+```
+
+```sh
+bin/console do:mi:mi
+```
+
+```sh
+bin/console ser:run
+```

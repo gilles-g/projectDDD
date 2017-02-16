@@ -12,6 +12,11 @@ use UserIdentity\Domain\Model\User;
 use UserIdentity\Domain\Query\GetPublisherById;
 use UserIdentity\Domain\Query\GetUserById;
 
+/**
+ * Class RegisterSuccess
+ * @package UserIdentity\Infrastructure\Rx
+ * @author Gauthier Gilles <g.gauthier@lexik.fr>
+ */
 class RegisterSuccess
 {
     /**
@@ -103,6 +108,16 @@ class RegisterSuccess
     }
 
     /**
+     * Example of RxPHP
+     *
+     * Get user for a given userId
+     *  - loads events for user and merge with user data
+     * Get publisher for a given publisherId
+     *  - loads events for publisher and merge with publisher data
+     * Merge user data and publisher data
+     *
+     * return Observable Map
+     *
      * @return Observable\AnonymousObservable
      */
     public function getSource()

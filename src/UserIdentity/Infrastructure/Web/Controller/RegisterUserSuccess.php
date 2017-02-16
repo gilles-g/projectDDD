@@ -5,29 +5,12 @@ namespace UserIdentity\Infrastructure\Web\Controller;
 use Rx\Observer\CallbackObserver;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use UserIdentity\Infrastructure\Persistence\EventStorePublisherRepository;
 
 class RegisterUserSuccess extends Controller
 {
     public function successAction()
     {
-        /**
-         * Example of RxPHP
-         *
-         * Get user for a given userId
-         *  - loads events for user and merge with user data
-         * Get publisher for a given publisherId
-         *  - loads events for publisher and merge with publisher data
-         * Merge user data and publisher data
-         *
-         * return Observable Map
-         */
-
         $registerSuccessRx = $this->get('user_identity.infrastructure.rx.register_success');
-
-        /** @var EventStorePublisherRepository $repo */
-        $repo = $this->get('publisher_repository');
-
 
         // Observer
         $createResponse = function (Response $response) {

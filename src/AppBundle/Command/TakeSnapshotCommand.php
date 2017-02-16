@@ -54,6 +54,10 @@ class TakeSnapshotCommand extends ContainerAwareCommand
         $output->writeln('<info>Snapshot effectué</info>');
     }
 
+    /**
+     * @param Publisher $publisher
+     * @return mixed
+     */
     private function getPublisherVersion(Publisher $publisher)
     {
         $todoReflected = new \ReflectionClass($publisher);

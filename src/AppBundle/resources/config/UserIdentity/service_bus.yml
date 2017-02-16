@@ -6,6 +6,7 @@ prooph_service_bus:
             router:
                 type: 'prooph_service_bus.command_bus_router'
                 routes:
+                    'Prooph\Snapshotter\TakeSnapshot': 'prooph.snapshotter'
                     'UserIdentity\Domain\Command\RegisterLightPublisher': 'project_ddd.register_user_handler'
                     'UserIdentity\Domain\Command\ChangeBusinessInformations': 'user_identity.domain.handler.change_business_informations_handler'
 

@@ -5,6 +5,7 @@ namespace UserIdentity\Infrastructure\Web\Controller;
 use Rx\Observer\CallbackObserver;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use UserIdentity\Domain\Model\PublisherId;
 use UserIdentity\Infrastructure\Persistence\EventStorePublisherRepository;
 
 class RegisterUserSuccess extends Controller

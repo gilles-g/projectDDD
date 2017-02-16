@@ -49,7 +49,3 @@ services:
       arguments:
           - '@prooph.bundle.event_store.snapshotter'
           - { 'UserIdentity\Domain\Model\Publisher': '@publisher_repository' }
-
-parameters:
-  repo_map:
-    'UserIdentity\Domain\Model\Publisher': 'UserIdentity\Infrastructure\Persistence\EventStorePublisherRepository'

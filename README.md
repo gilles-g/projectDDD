@@ -1,4 +1,90 @@
 Project DDD
-=============
+===========
 
-A Symfony project created on February 2, 2017, 2:04 pm.
+Simple demo project:
+
+* Prooph : https://github.com/prooph
+
+This project is inspired by https://github.com/prooph/proophessor-do-symfony
+
+You can just test a registration and change your information with fake information.
+The important here is to look at the events and snapshot created in your database.
+Look also in the symfony profiler how doctrine queries are processed.
+
+* RxPHP : https://github.com/ReactiveX/RxPHP
+
+RxPHP is used to handle asynchronous call. Prooph uses a React\Promise to 
+handle queries; With RxPHP you can wrap a promise with an Observable.
+
+An example here (without promise) : 
+
+Example of RxPHP
+
+```
+Get User for a given userId and return an Observable
+    array [
+      "userId" => UserId 
+      "emailAddress" => EmailAddress
+      "username" => "syzof@yahoo.com"
+    ]
+
+ - loads events and return an Observable
+    array [
+        0 => UserWasRegistered 
+    ]
+    
+ - zip user and events then return an Observable
+    array [
+      "userId" => UserId
+      "emailAddress" => EmailAddress
+      "username" => "syzof@yahoo.com"
+      "userEvents" => array
+    ]
+ 
+Get publisher for a given publisherId
+    array [
+      "publisherId" => PublisherId
+    ]
+
+ - loads events and return an Observable
+   array [
+     0 => LightPublisherWasRegistered
+     1 => BusinessInformationsUpdated
+     2 => BusinessInformationsUpdated
+     3 => BusinessInformationsUpdated
+     4 => BusinessInformationsUpdated
+     5 => BusinessInformationsUpdated
+     6 => BusinessInformationsUpdated
+     7 => BusinessInformationsUpdated
+     8 => BusinessInformationsUpdated
+     9 => BusinessInformationsUpdated
+     10 => BusinessInformationsUpdated
+   ] 
+ - zip publisher and events then return an Observable
+    array [
+      "publisherId" => PublisherId
+      "publisherEvents" => array
+    ]
+ 
+Zip user Observable and publisher Observable
+And return an Observable
+
+array:6 [▼
+  "userId" => UserId {#3610 ▶}
+  "emailAddress" => EmailAddress {#3498 ▶}
+  "username" => "syzof@yahoo.com"
+  "userEvents" => array:1 [▶]
+  "publisherId" => PublisherId {#3382 ▶}
+  "publisherEvents" => array:30 [▶]
+]
+
+```
+
+Installation:
+-------------
+
+git clone
+composer install
+bin/console do:mi:mi
+bin/console ser:run
+

@@ -122,10 +122,12 @@ class RegisterSuccess
      */
     public function getSource()
     {
-        $sourceUser = $this->getUser()->zip([$this->getUserEvents()], function ($userMap, $eventUserMap) {
-            $userMap['userEvents'] = $eventUserMap;
-            return $userMap;
-        });
+        $sourceUser = $this->getUser()
+            ->zip([$this->getUserEvents()], function ($userMap, $eventUserMap) {
+                $userMap['userEvents'] = $eventUserMap;
+                return $userMap;
+            })
+        ;
 
         $sourcePublisher = $this->getPublisher()
             ->zip([$this->getPublisherEvents()], function ($publisherMap, $eventPublisherMap) {
@@ -133,8 +135,10 @@ class RegisterSuccess
                 return $publisherMap;
             });
 
-        return $sourceUser->zip([$sourcePublisher], function ($user, $publisher) {
-            return array_merge($user, $publisher);
-        });
+        return
+            $sourceUser
+                ->zip([$sourcePublisher], function ($user, $publisher) {
+                    return array_merge($user, $publisher);
+                });
     }
 }

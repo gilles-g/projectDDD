@@ -27,26 +27,32 @@ Get User for a given userId and return an Observable
       "emailAddress" => EmailAddress
       "username" => "syzof@yahoo.com"
     ]
-
- - loads events and return an Observable
+```
+```
+Loads events and return an Observable
     array [
         0 => UserWasRegistered 
     ]
-    
- - zip user and events then return an Observable
+``` 
+
+```
+Zip user and events then return an Observable
     array [
       "userId" => UserId
       "emailAddress" => EmailAddress
       "username" => "syzof@yahoo.com"
       "userEvents" => array
     ]
- 
+```
+
+```
 Get publisher for a given publisherId
     array [
       "publisherId" => PublisherId
     ]
-
- - loads events and return an Observable
+```
+```
+Loads events and return an Observable
    array [
      0 => LightPublisherWasRegistered
      1 => BusinessInformationsUpdated
@@ -60,12 +66,15 @@ Get publisher for a given publisherId
      9 => BusinessInformationsUpdated
      10 => BusinessInformationsUpdated
    ] 
- - zip publisher and events then return an Observable
+```
+```
+Zip publisher and events then return an Observable
     array [
       "publisherId" => PublisherId
       "publisherEvents" => array
     ]
- 
+```
+```
 Zip user Observable and publisher Observable
 And return an Observable
 

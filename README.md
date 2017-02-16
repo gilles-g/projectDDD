@@ -69,13 +69,13 @@ Get publisher for a given publisherId
 Zip user Observable and publisher Observable
 And return an Observable
 
-array:6 [▼
-  "userId" => UserId {#3610 ▶}
-  "emailAddress" => EmailAddress {#3498 ▶}
+array [
+  "userId" => UserId
+  "emailAddress" => EmailAddress}
   "username" => "syzof@yahoo.com"
-  "userEvents" => array:1 [▶]
-  "publisherId" => PublisherId {#3382 ▶}
-  "publisherEvents" => array:30 [▶]
+  "userEvents" => array
+  "publisherId" => PublisherId 
+  "publisherEvents" => array
 ]
 
 ```
